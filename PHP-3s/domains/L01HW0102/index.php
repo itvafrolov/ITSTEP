@@ -1,7 +1,7 @@
 <?php
 //error_reporting(-1);
-$cols = array(1,2,3,4,5,6,7,8,9,10,11);
-$rows = array(1,2,3,4,5,6,7,8,9,10,11);
+$cols = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25);
+$rows = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
 $tbhead = "<table border='1'>";
 $trstart = "<tr>";
 $trend = "</tr>";
@@ -20,48 +20,39 @@ $trend = "</tr>";
 	<title>HW 2</title>
 	<link rel="stylesheet" href="js/jquery-ui.min.css" />
 	<style>
-		body {margin: 15px 40px;}
-		/* #wrap {width: 600px; margin: 0 auto;} */
-		/* table {border-collapse: collapse; } */
-		/* td {padding: 5px; text-align: right;} */
-		/* td:first-child {width: 350px;} */
-		/* .header { padding: 5px; display: inline;} */
-		/* .header a {color: orange; } */
-		/* .header a:hover  {color: #d30; text-decoration: none; } */
-		 /* td img {width: 15px;  margin-right: 15px; display: none;} */
-		/* .price {font-size: 1.1em; font-weight: bold; color: #d00; } */
-		/* .frm input {text-align: right;} */
-		/* .del {background: url(books/delx.gif) no-repeat; width: 15px; height: 15px; cursor: pointer; text-align: center; } */
-		/* #buy {
-			width: 135px; cursor: pointer;
-			margin: 20px 0;
-		} */
+		.hhh {background-color: #f01;
+		font: 14pt sans-serif;
+		font-weight: bold;
+		}
+		.ddd {background-color: #199;
+		font: 12pt/10pt sans-serif;}
+		body {margin: 10px 60px;}
 	</style>
 </head>
 <body>
 <div>
 	<h2>Таблица умножения</h2>
 	<!-- <form name="elbooks" id="elbooks"> -->
+	<!-- <p class=ddd > 123 -->
+	</p>
 	
 <?php	
 	echo $tbhead;
-	
-	for($i = 0; $i<count($rows); $i++) { //rows
-    	  //$tr2 = "<th>пн</th>  <th>вт</th>  <th>ср</th>  <th>чт</th>   <th>пт</th>	<th>сб</th> <th>вс</th>";
+	//$i=0;
+	//$j = 0;
+	for($i = 0; $i<count($rows); $i++) {
 		  echo $trstart; 
 		  for($j = 0;  $j<count($cols); $j++){  //cols
-			  $trdata = $rows[$i] *  $cols[$j];	
-			  if ($i == 1){
-			  $tr2 = "<th background-color = #d30 >".$trdata."</th>";
+			  $trdata = $rows[$i] * $cols[$j];	
+			  if ($i == 0 || $j == 0){
+			  $tr2 = "<th class=hhh>".$trdata."</th>";
 			  }
-			  $tr2 = "<th>".$trdata."</th>";
+			  else {$tr2 = "<th class=ddd>".$trdata."</th>";}
 		 	  echo $tr2;
 		  }
 		  echo $trend;
 		}
-		echo count($rows);
-	  //echo $trstart.$tr2.$trend;
-	  //$len = 
+		echo count($rows);	 
 	?>
 	
 </div>
