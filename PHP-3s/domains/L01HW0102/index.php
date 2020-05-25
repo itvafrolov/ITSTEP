@@ -1,7 +1,7 @@
 <?php
 //error_reporting(-1);
 $cols = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25);
-$rows = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+$rows = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,35);
 $tbhead = "<table border='1'>";
 $trstart = "<tr>";
 $trend = "</tr>";
@@ -38,6 +38,7 @@ $trend = "</tr>";
 	
 <?php	
 	echo $tbhead;
+	
 	//$i=0;
 	//$j = 0;
 	for($i = 0; $i<count($rows); $i++) {
@@ -52,7 +53,7 @@ $trend = "</tr>";
 		  }
 		  echo $trend;
 		}
-		echo count($rows);	 
+		//echo count($rows);	 
 	?>
 	
 </div>

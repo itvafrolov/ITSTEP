@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Globalization;
+using System.Threading;
 
 namespace ConsoleApp2
 {
@@ -11,6 +12,7 @@ namespace ConsoleApp2
             Random random = new Random();
             /**************  ЗАДАЧА 1 **************************/
             /* Написать программу, которая находит в массиве значения, повторяющиеся два и более раз, и показывает их на экран.*/
+
             /*
              int size = 40;
              int[] arr = new int[size];
@@ -40,6 +42,7 @@ namespace ConsoleApp2
             /**************  ЗАДАЧА 2 **************************/
             /*Дан двумерный массив размерностью 5х5, заполненный случайными числами из диапазона от 0 до 100.
             Переформировать массив таким образом, чтобы его столбцы располагались по убыванию их поэлементных сумм.*/
+            /********** начало задачи 2 ***********/
             /*
              int str = 5, col = 5;
              int[,] arr = new int[str, col];     //2-мерный массив
@@ -139,11 +142,84 @@ namespace ConsoleApp2
              {
                  Console.Write("{0} \t", arrSum[i]);
              }
-
-             */ // конец задачи 2
-
+            */ // конец задачи 2
 
 
+
+
+            /**************  ЗАДАЧА 3 **************************/
+            /*
+             * 3. В массиве хранится информация о количестве жильцов каждой квартиры пятиэтажного дома 
+             (4 подъезда, на каждом этаже по 2 квартиры).
+            - по выбранному номеру квартиры определить количество жильцов, а также их соседей проживающих на одном этаже;
+            - определить суммарное количество жильцов для каждого подъезда;
+            - определить номера квартир, где живут многодетные семьи. 
+            Условно будем считать таковыми, у которых количество членов семьи превышает пять человек.*/
+            /********** начало задачи 2 ***********/
+
+            //*******  РЕШЕНИЕ:  
+            //Количество квартир в подъезде = 5 х 2 = 10  =>  х 4(подъезда)  = 40 (всего)
+            // Нумерация квартир - 1,2,3,4 и тд. тоесть в массивe это (index + 1)
+            //соседние квартиры - это младшее нечетное и старшее четное  ( 1 и 2 )  (10 и 9)  
+            // а в массиве это младшее четное и старшее нечетное (10 и 11)
+            //-----------------------------------------------------------------------------------
+            //делаем массив и рандомим туда количество жителей от 1 до 9
+            // ***** начало задачи 3 
+            /*
+
+            int count = 40;
+            int[] home = new int[count];
+            for (int i = 0; i < count; i++)
+            {
+                home[i] = random.Next(1, 9);
+            }
+            for (int i = 0; i < count; i++)
+            {
+                Console.WriteLine("{0} -> {1}", i+1, home[i]);
+            }
+
+            // задаем номер квартиры
+            Console.Write("Apartment number:  "); 
+            int number = Convert.ToInt32(Console.ReadLine());
+            if (((number-1)%2)==0)
+            {
+                Console.Write("Residents:  ");
+                Console.WriteLine("{0} -> {1}", number, home[number-1]);
+                Console.Write("Neighbors:  ");
+                Console.WriteLine("{0} -> {1}", number+1, home[number]);
+            }
+            else
+            {
+                Console.Write("Residents:  ");
+                Console.WriteLine("{0} -> {1}", number, home[number - 1]);
+                Console.Write("Neighbors:  ");
+                Console.WriteLine("{0} -> {1}", number-1, home[number-2]);
+            }
+
+            //считаем количество жильцов для каждого подъезда 10 на каджый
+            int countResidents = 0;
+            for (int i = 0; i < 40; i++)
+            {
+                countResidents = countResidents + home[i];
+                if (((i+1)%10)==0)
+                {
+                    Console.Write("Front door number:  ");
+                    Console.WriteLine("{0} Residents -> {1}", (i + 1) / 10, countResidents);
+                   // Console.Write(" ");
+                   // Console.WriteLine(countResidents);
+                    //Console.WriteLine("{0} -> {1}", , countResidents);
+                    countResidents = 0;
+                }
+            }
+            //выводим квартиры с численностью жильцов от 5
+            for (int i = 0; i < 40; i++)
+            {                
+                if (home[i] > 5 )
+                {                 
+                    Console.WriteLine("{0} Residents -> {1}", i + 1, home[i]);
+                }
+            }
+            */  //конец задачи 3
 
             //---------------------------------
 
