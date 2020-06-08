@@ -117,45 +117,48 @@ foreach($arr as $item){
 остаться в нем и начинаться с новой строки после пути).*/
 /*
 $arr = scandir('test');
+$folder = 'test';
 foreach($arr as $item){
-    if(is_file("test/$item"))
-        echo pachinfo("test/$item")."<br>";   
+    $path = $folder.'/'.$item;
+    if(is_file($path)){
+        $str = file_get_contents($path);
+        file_put_contents($path, $path."\n".$str);
+        //echo $path."<br>";   
+    }
 }
 */
 
+// $str = file_get_contents('mir.txt');
+// file_put_contents('mir.txt', $str);
+
 // 18. Выведите на экран имена всех папок из папки 'test' и их подпапок (может быть любой уровень вложенности).
 
-// function viewTree( $folder, $space ) {
-// $arr = scandir( 'test' );
-// foreach( $arr as $file )
-//  {
-//  // Отбрасываем текущий и родительский каталог
-//  if ( ( $file == '.' ) || ( $file == '..' ) ) continue;
-//  // Получаем полный путь к файлу
-//  $path = $folder.'/'.$file;
-//  // Если это директория
+function viewTree( $folder, $space ) {
+$arr = scandir( $folder );
+foreach( $arr as $nameElem )
+ {
+ // Отбрасываем текущий и родительский каталог
+ if ( ( $nameElem == '.' ) || ( $nameElem == '..' ) ) continue;
+ // Получаем полный путь к файлу
+ $path = $folder.'/'.$nameElem; 
 
-//  if ( is_dir( $path ))
-//   {
-//   // Выводим название директории, делая заданный отступ
-//   echo $space.$space.$file."<br />";
+ // Если это директория
+ if ( is_dir( $path ))
+  {
+  // Выводим название директории, делая заданный отступ
+  echo $space.$space.$nameElem."<br />";
+  // С помощью рекурсии выводим содержание полученной директории
+  viewTree( $path, $space.'&nbsp;' );
+  }
+ }
+}
 
-//   // С помощью рекурсии выводим содержание полученной директории
-//   viewTree( $path, $space.'&nbsp;&nbsp;' );
-//   }
-//  // Если это файл, то просто выводим название файла
-//  else {
-//   echo $space.$file."<br />";
-//   }
-//  }
-// }
-// viewTree( 'test', '' );
+//viewTree( 'test', '' );
 
 
 /* 19. Выведите на экран содержимое всех файлов из папки 'test' и ее подпапок (может быть любой уровень
 вложенности).*/
 
-$folder = 'test';
 function viewTreeFileContent( $folder, $space ) {
     $arr = scandir($folder);
     foreach( $arr as $item )
@@ -164,33 +167,131 @@ function viewTreeFileContent( $folder, $space ) {
      if ( ( $item == '.' ) || ( $item == '..' ) ) continue;
      // Получаем полный путь к файлу
      $path = $folder.'/'.$item;
-     if (!is_dir( $path )){
-        //echo $space.$space.$file."<br />";
-         echo $space.$item."<br />";
-         }
+     if ( is_file( $path ))
+        { //выводим путь и имя файла а ниже его содержимое
+            echo "<b>".$path."</b><br />";
+            echo "CONTENT:   ".file_get_contents($path)."<br>";            
+        }
      // Если это директория     
      if ( is_dir( $path ))
-      {
-      // Выводим название директории, делая заданный отступ
-      echo $space.$item."<br />";
-      // С помощью рекурсии выводим содержание полученной директории
-        viewTreeFileContent( $path, $space.'&nbsp;&nbsp;' );
+      { // С помощью рекурсии читаем содержание полученной директории
+        viewTreeFileContent( $path, $space.'&nbsp;&nbsp;' );        
       }
-     // Если это файл, то просто выводим название файла а потом его содержимое
-    //  else {
-    //  //echo $space.$space.$file."<br />";
-    //   echo $space.$file."<br />";
-    //   }
      }
     }
-    viewTreeFileContent( 'test', '' );
+//    viewTreeFileContent( 'test', '' );
 
 
 /* 20. Найдите все файлы из папки 'test' и ее подпапок любого уровня вложенности и вставьте в начало каждого файла
 полный путь к нему (текст файла должен остаться в нем и начинаться с новой строки после пути).*/
+
+function pathToFile( $folder, $space ) {
+    $arr = scandir($folder);
+    foreach( $arr as $item )
+     {
+     if ( ( $item == '.' ) || ( $item == '..' ) ) continue;
+     // Получаем полный путь к файлу
+     $path = $folder.'/'.$item;
+     if ( is_file( $path ))
+        { //выводим путь и имя файла а ниже его содержимое
+            $str = file_get_contents($path);
+            file_put_contents($path, $path."\n".$str);
+        }
+     // Если это директория     
+     if ( is_dir( $path ))
+      { // С помощью рекурсии читаем содержание полученной директории
+        pathToFile( $path, $space.'&nbsp;&nbsp;' );        
+      }
+     }
+    }
+    //pathToFile( 'test', '' );
+    //viewTreeFileContent( 'test', '' );
+
 //*********   Задачи
 /* 21. Найдите все файлы из папки 'test', в их содержимом найдите тег <h1>текст</h1>. Переименуйте все файлы на их h1.*/
+
+function pathToFile2( $folder) {
+    $arr = scandir($folder);
+    foreach( $arr as $item )
+     {     
+     if ( ( $item == '.' ) || ( $item == '..' ) ) continue;
+     // Получаем полный путь к файлу
+     $path = $folder.'/'.$item;
+     if ( is_file( $path ))
+        { //его содержимое
+            $str = file_get_contents($path);
+            if (stripos($str, '<h1>текст</h1>')!=FALSE){
+                rename($path,$folder."/"."hhhhhhh1.txt");
+            }           
+        }
+     // Если это директория     
+     if ( is_dir( $path ))
+      { // С помощью рекурсии читаем содержание полученной директории
+        pathToFile2( $path);        
+      }
+     }
+    }
+    // ********  ВЫВОД РЕЗУЛЬТАТОВ
+    // viewTreeFileContent( 'test', '' );
+    // echo "<hr>";
+    // pathToFile2( 'test');
+    // viewTreeFileContent( 'test', '' );
+
 // 22. Удалите из папки 'test' все файлы размером более 1мб.
+/*
+$arr = scandir('test');
+$folder = 'test';
+foreach($arr as $item){
+    $file = $folder.'/'.$item;
+    if(is_file($file)){
+        if (filesize ($file)>1000000){
+        echo $file.'&nbsp;&nbsp;'.filesize($file).'&nbsp;&nbsp;'."REMOVED!!!  <br>";
+        unlink($file);
+        }
+        else echo $file.'&nbsp;&nbsp;'.filesize($file)." <br>";
+    }
+}
+*/
+
 // 23. Имеется папка с файлами, узнайте размер этой папки.
+/*
+$arr = scandir('test2');
+$folder = 'test2';
+foreach($arr as $item){
+    $file = $folder.'/'.$item;
+    if(is_file($file))
+        $sizeFolder = $sizeFolder + filesize ($file);
+    }
+    echo $folder.'&nbsp;&nbsp;'.$sizeFolder." <br>";
+*/
+    //echo filesize('test2');
+
 // 24. Имеется папка с подпапками, узнайте размеры всех подпапок папки и выведите их на экран. 
+
+function folderSize($folder, $space ) {
+        $arr = scandir( $folder );
+        foreach( $arr as $nameElem )
+         {
+        if ( ( $nameElem == '.' ) || ( $nameElem == '..' ) ) continue;
+         // Получаем полный путь к файлу
+         $path = $folder.'/'.$nameElem;         
+         // Если это директория
+         if ( is_dir( $path ))
+          {
+            $arr1 = scandir($path);
+             foreach($arr1 as $item){
+                $file = $path.'/'.$item;
+                if(is_file($file))
+                    $sizeFolder = $sizeFolder + filesize($file);
+                }
+                echo $space.$space.$nameElem.'&nbsp;&nbsp;'.$sizeFolder." <br>";
+                $sizeFolder = 0;
+          // Выводим название директории, делая заданный отступ
+        //   echo $space.$space.$nameElem."<br />";
+          // С помощью рекурсии выводим содержание полученной директории
+          folderSize( $path, $space.'&nbsp;&nbsp;' );
+          }
+         }
+        }
+//  folderSize('test','');
 ?>
