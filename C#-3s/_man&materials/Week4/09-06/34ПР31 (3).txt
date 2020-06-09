@@ -1,0 +1,431 @@
+// ClassLibrary
+
+    public class Class1
+    {
+        protected string P1;
+        protected internal string P2;
+    }
+
+    class MyClass
+    {
+        Class1 class1 = new Class1();
+
+        public void Print()
+        {
+            Console.WriteLine($"{class1.P1} {class1.P2}"); // P1 - P2 +
+        }
+    }
+
+--------------------------------------------------------------------------------------
+
+    class Example : Class1
+    {
+        public void Show()
+        {
+            Console.WriteLine($"{P1} {P2}"); // P1 + P2 +
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Class1 class1 = new Class1();
+
+            Console.WriteLine($"{class1.P1} {class1.P2}"); // P1 - P2 -
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    abstract class Shape
+    {
+        protected int X { get; set; }
+        protected int Y { get; set; }
+
+        protected string Name { get; set; }
+
+        public Shape(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public override string ToString()
+        {
+            return $"X: {X} Y: {Y}";
+        }
+
+        public virtual void Print()
+        {
+            Console.WriteLine($"Name: {Name}");
+        }
+
+        public abstract double Square();
+        public abstract double Perimeter();
+    }
+
+    class Circle : Shape
+    {
+        public double Radius { get; set; }
+        public Circle(int x, int y, double radius) : base(x, y)
+        {
+            Radius = radius;
+        }
+
+        public override double Perimeter()
+        {
+            return 2 * Math.PI * Radius;
+        }
+
+        public override double Square()
+        {
+            return Math.PI * Math.Pow(Radius, 2);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Shape shape = new Shape(34, 56); // error
+            Shape shape = new Circle(134, 256, 23.78);
+
+            Console.WriteLine(shape.Perimeter());
+            Console.WriteLine(shape.Square());
+
+            Console.ReadKey();
+        }
+    }
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+using System;
+using static System.Console;
+
+namespace ConsoleCS
+{
+    public abstract class Human
+    {
+        string _firstName;
+        string _lastName;
+        DateTime _birthDate;
+
+        public Human(string fName, string lName, DateTime date)
+        {
+            _firstName = fName;
+            _lastName = lName;
+            _birthDate = date;
+        }
+        public virtual void Print()
+        {
+            WriteLine($"\nФамилия: {_lastName}\nИмя: {_firstName}\nДата рождения: {_birthDate.ToLongDateString()}");
+        }
+
+        public override string ToString()
+        {
+            return $"\nФамилия: {_lastName}\nИмя: {_firstName}\nДата рождения: {_birthDate.ToLongDateString()}";
+        }
+
+        public abstract void Think();
+    }
+
+    public abstract class Employee : Human
+    {
+        double _salary;
+
+        public Employee(string fName, string lName, DateTime date, double salary) : base(fName, lName, date)
+        {
+            _salary = salary;
+        }
+
+        public override void Print()
+        {
+            base.Print();
+            WriteLine($"Заработная плата: {_salary} $");
+        }
+        public override string ToString()
+        {
+            return $"{base.ToString()} Заработная плата: {_salary} $";
+        }
+    }
+
+    class Manager : Employee
+    {
+        string _fieldActivity;
+
+        public Manager(string fName, string lName, DateTime date, double salary, string activity) : base(fName, lName, date, salary)
+        {
+            _fieldActivity = activity;
+        }
+
+        public override void Print()
+        {
+            Write($"\nМенеджер. Сфера деятельности: {_fieldActivity}");
+            base.Print();
+        }
+
+        public override void Think()
+        {
+            WriteLine("Думаю как менеджер");
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()} \nМенеджер. Сфера деятельности: {_fieldActivity}";
+        }
+    }
+    class Scientist : Employee
+    {
+        string _scientificDirection;
+        public Scientist(string fName, string lName, DateTime date, double salary, string direction) : base(fName, lName, date, salary)
+        {
+            _scientificDirection = direction;
+        }
+        public override void Print()
+        {
+            Write($"\nУченый. Научное направление: {_scientificDirection}");
+            base.Print();
+        }
+        public override void Think()
+        {
+            WriteLine("Думаю как ученый");
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}\nУченый. Научное направление: {_scientificDirection}";
+        }
+    }
+    class Specialist : Employee
+    {
+        string _qualification;
+        public Specialist(string fName, string lName, DateTime date, double salary, string qualification) : base(fName, lName, date, salary)
+        {
+            _qualification = qualification;
+        }
+        public override void Print()
+        {
+            Write($"\nСпециалист. Квалификация: {_qualification}");
+            base.Print();
+        }
+
+        public override void Think()
+        {
+            WriteLine("Думаю как специалист");
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}\nСпециалист. Квалификация: {_qualification}";
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Human[] people = {
+              new Manager("John", "Doe", new DateTime(1995,7,23), 3500, "продукты питания"),
+              new Scientist("Jim", "Beam", new DateTime(1956,3,15), 4253, "история"),
+              new Specialist("Jack", "Smith", new DateTime(1996,11,5), 2587.43,"физика")
+            };
+
+            foreach (Human item in people)
+            {
+                item.Think(); // полиморфизм
+            }
+
+            WriteLine("\n+++++++++++++++++++++++++++\n");
+
+            foreach (Human item in people)
+            {
+                WriteLine(item); // полиморфизм
+            }
+        }
+    }
+}
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+            string str = null;
+            try
+            {
+                int n1 = int.Parse(Console.ReadLine());
+                int n2 = int.Parse(Console.ReadLine());
+
+                int result = n1 / n2;
+                Console.WriteLine(result);
+
+                str = "Hello!";
+            }
+            /*catch(FormatException fe)
+            {
+                Console.WriteLine(fe.Message);
+            }
+            catch (DivideByZeroException de)
+            {
+                Console.WriteLine(de.Message);
+            }*/
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            /*catch
+            {
+                Console.WriteLine("Error!");
+            }*/
+
+            Console.WriteLine(str.Contains("el"));
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    /*class MyException : ApplicationException // 1
+    {
+        private string _message;
+
+        public DateTime TimeException { get; private set; }
+
+        public MyException()
+        {
+            _message = "My exception!";
+            TimeException = DateTime.Now;
+        }
+        public override string Message
+        {
+            get { return _message; }
+        }
+    }*/
+
+    class MyException : ApplicationException // 2
+    {
+        public DateTime TimeException { get; private set; }
+
+        public MyException() : base("My exception!")
+        {
+            TimeException = DateTime.Now;
+        }
+    }
+
+    /*[Serializable]
+    public class MyException : Exception // 3
+    {
+        public DateTime TimeException { get; private set; }
+        public MyException() : this("My exception!")
+        {
+            TimeException = DateTime.Now;
+        }
+        public MyException(string message) : base(message) { }
+        public MyException(string message, Exception inner) : base(message, inner) { }
+        protected MyException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }*/
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                int n1 = int.Parse(Console.ReadLine());
+                int n2 = int.Parse(Console.ReadLine());
+
+                if (n2 % 2 == 0)
+                {
+                    throw new MyException();
+                }
+
+                int result = n1 / n2;
+                Console.WriteLine(result);
+            }
+            catch(MyException me)
+            {
+                Console.WriteLine($"{me.TimeException} {me.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("finally");
+            }
+
+            Console.ReadKey();
+        }
+    }
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        static int Div(int n1, int n2)
+        {
+            /*int result;
+
+            try
+            {
+                result = n1 / n2;
+            }
+            catch
+            {
+                throw;
+            }
+
+            return result;*/
+
+            return n1 / n2;
+        }
+
+        static void Main(string[] args)
+        {
+            try
+            {
+                int n1 = int.Parse(Console.ReadLine());
+                int n2 = int.Parse(Console.ReadLine());
+                               
+                Console.WriteLine(Div(n1,n2));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.ReadKey();
+        }
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    static void Main(string[] args)
+    {
+        //byte b = 100;
+        //b = (byte)(b + 200);
+        //Console.WriteLine($"(byte)300 = {b}"); // 44
+
+        //// 300 => 100101100
+        //// 00101100 => 44
+
+        try
+        {
+            checked
+            {
+                byte b = 100;
+                b = (byte)(b + 200);
+                Console.WriteLine($"(byte)300 = {b}");
+            }
+        }
+        catch (OverflowException oe)
+        {
+            Console.WriteLine(oe.Message);
+        }
+
+        unchecked
+        {
+            byte b = 100;
+            b = (byte)(b + 200);
+            Console.WriteLine($"(byte)300 = {b}"); // 44
+
+            // 300 => 100101100
+            // 00101100 => 44
+        }
+
+        Console.ReadKey();
+    }
