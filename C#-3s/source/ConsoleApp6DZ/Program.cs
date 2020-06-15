@@ -103,8 +103,7 @@ namespace ConsoleApp6DZ
         {
             return $"Figure: Rhombus\n------------------------------\n Rhombus side: {_lenght}, Rhombus angle: {_angle} Radian \n Rhombus area: {SquareFigures()}\n Rhombus Perimeter: {PerimeterFigures()}";
         }
-    }
-
+    }    
 
     //прямоугольник
     class Rectangle : Figure
@@ -185,8 +184,66 @@ namespace ConsoleApp6DZ
         }
     }
 
+    /*  ----- 
+       Реализовать класс «Составная Фигура», который может состоять из любого количества «Геометрических Фигур».
+       Для данного класса определить методы нахождения площади и периметра фигуры.*/
+    // понял задание так: не важно сколько фигур и какие они. просто сложить их все в одну кучу. 
+    // площадь фигуры при этом - сумма площадей фигур, составляющих кучу или мозаику
+    // «Составная Фигура» состоит из одно типа и размера фигур? Или из разных? Сложенные они в один ряд или в несколько?
+    // может быть это как пазлы? тогда вопрос: они уже сложенные? если да, то механика определения площади такая же как и в куче, 
+    // или их нужно еще и складывать?
+    // Периметр в куче вообще не представляю.
+
+
     class CompositeFigure
     {
+        //сюда массивы геометрических фигур
+        // Figure[] _geom;
+        Triangle[] _tri;
+        Square[] _sq;
+        Rhombus[] _romb;
+        Rectangle[] _rect;
+        Parallelogram[] _paral;
+
+
+        CompositeFigure(int colSq, int colTri, int colRomb, int colRect, int colParal)
+        {
+            Triangle[] _tri = new Triangle[colTri];
+            Square[] _sq = new Square[colSq];
+            Rhombus[] _romb = new Rhombus[colRomb];
+            Rectangle[] _rect = new Rectangle[colRect];
+            Parallelogram[] _paral = new Parallelogram[colParal];
+            // Figure[] _geom = {_tri, _sq }  // не получилось
+            // предположим, что 
+        }
+
+        public double SquareFigures()
+        {
+            double S = 0; 
+            foreach (Triangle item in _tri)
+            {
+                S += item.SquareFigures(); 
+            }
+            foreach (Square item in _sq)
+            {
+                S += item.SquareFigures();
+            }
+            foreach (Rhombus item in _romb)
+            {
+                S += item.SquareFigures();
+            }
+            foreach (Rectangle item in _rect)
+            {
+                S += item.SquareFigures();
+            }
+            foreach (Parallelogram item in _paral)
+            {
+                S += item.SquareFigures();
+            }
+
+            return S;
+            
+        }
 
     }
 
