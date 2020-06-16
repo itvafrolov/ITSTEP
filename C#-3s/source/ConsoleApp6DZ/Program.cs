@@ -30,6 +30,13 @@ namespace ConsoleApp6DZ
         public double _lenght2 { get; set; }
         public double _lenght3 { get; set; }
 
+        public Triangle()
+        {
+            _lenght1 = 10;
+            _lenght2 = 10;
+            _lenght3 = 10;
+        }
+
         public Triangle(double lenght1, double lenght2, double lenght3)
         {
             _lenght1 = lenght1;
@@ -57,10 +64,16 @@ namespace ConsoleApp6DZ
     {
         public double _lenght { get; set; }
 
+        public Square()
+        {
+            _lenght = 10;
+        }
+
         public Square(double lenght)
         {
             _lenght = lenght;
         }
+
 
         public override double SquareFigures()
         {
@@ -81,14 +94,18 @@ namespace ConsoleApp6DZ
     {
         public double _lenght { get; set; }
         public double _angle { get; set; }
-        //public double _diag1{ get; set; }
-        //public double _diag2 { get; set; }
+   
+        public Rhombus()  //по умолчанию квадрат
+        {
+            _lenght = 10;
+            _angle = (Math.PI) / 2;
+        }
 
 
         public Rhombus(double lenght, double angle)
         {
             _lenght = lenght;
-            _angle = angle;           
+            _angle = angle;
         }
 
         public override double SquareFigures()
@@ -103,7 +120,7 @@ namespace ConsoleApp6DZ
         {
             return $"Figure: Rhombus\n------------------------------\n Rhombus side: {_lenght}, Rhombus angle: {_angle} Radian \n Rhombus area: {SquareFigures()}\n Rhombus Perimeter: {PerimeterFigures()}";
         }
-    }    
+    }
 
     //прямоугольник
     class Rectangle : Figure
@@ -111,8 +128,13 @@ namespace ConsoleApp6DZ
         public double _lenght1 { get; set; }
         public double _lenght2 { get; set; }
 
+        public Rectangle() // по умолчанию квадрат
+        {
+            _lenght1 = 10;
+            _lenght2 = 10;
+        }
 
-        public Rectangle (double lenght1, double lenght2)
+        public Rectangle(double lenght1, double lenght2)
         {
             _lenght1 = lenght1;
             _lenght2 = lenght2;
@@ -123,7 +145,7 @@ namespace ConsoleApp6DZ
         }
         public override double PerimeterFigures()
         {
-            return (_lenght1 + _lenght2 )* 2;
+            return (_lenght1 + _lenght2) * 2;
         }
         public override string ToString()
         {
@@ -138,6 +160,12 @@ namespace ConsoleApp6DZ
         public double _lenght2 { get; set; }
         public double _angle { get; set; }
 
+        public Parallelogram()
+        {
+            _lenght1 = 10;
+            _lenght2 = 10;
+            _angle = (Math.PI) / 2;
+        }
 
         public Parallelogram(double lenght1, double lenght2, double angle)
         {
@@ -148,24 +176,29 @@ namespace ConsoleApp6DZ
 
         public override double SquareFigures()
         {
-        return _lenght1 * _lenght2 * Math.Sin(_angle);
+            return _lenght1 * _lenght2 * Math.Sin(_angle);
         }
         public override double PerimeterFigures()
         {
-        return (_lenght1 + _lenght2) * 2;
+            return (_lenght1 + _lenght2) * 2;
         }
-         public override string ToString()
-         {
-        return $"Figure: Parallelogram\n------------------------------\n Parallelogram side1: {_lenght1}, side2: {_lenght2}, Angle: {_angle} Radian \n Parallelogram area: {SquareFigures()}\n Parallelogram Perimeter: {PerimeterFigures()}";
-         }
-}
+        public override string ToString()
+        {
+            return $"Figure: Parallelogram\n------------------------------\n Parallelogram side1: {_lenght1}, side2: {_lenght2}, Angle: {_angle} Radian \n Parallelogram area: {SquareFigures()}\n Parallelogram Perimeter: {PerimeterFigures()}";
+        }
+    }
 
     //круг
     class Circle : Figure
     {
         public double _radius { get; set; }
 
-        public Circle(double R)
+        public Circle()
+        {
+            _radius = 10;
+        }
+
+        public Circle(double R=10)
         {
             _radius = R;
         }
@@ -205,24 +238,46 @@ namespace ConsoleApp6DZ
         Rectangle[] _rect;
         Parallelogram[] _paral;
 
-
-        CompositeFigure(int colSq, int colTri, int colRomb, int colRect, int colParal)
+        //допустим, у нас есть мозаика из фигур, описанных в файле или будет ввод данных вручную
+        //задаем количество фигур, создаем массивы и в циклах создаем элементы массивов
+        // или можем предположить, что элементарные фигуры создаются с размерами по умолчанию, тогда
+       public CompositeFigure(int colSq, int colTri, int colRomb, int colRect, int colParal)
         {
             Triangle[] _tri = new Triangle[colTri];
             Square[] _sq = new Square[colSq];
             Rhombus[] _romb = new Rhombus[colRomb];
             Rectangle[] _rect = new Rectangle[colRect];
             Parallelogram[] _paral = new Parallelogram[colParal];
-            // Figure[] _geom = {_tri, _sq }  // не получилось
-            // предположим, что 
-        }
+            
+            for (int i = 0; i < colTri; i++)
+            {
+                _tri[i] = new Triangle();
+            }
+            for (int i = 0; i < colTri; i++)
+            {
+                _sq[i] = new Square();
+            }
+            for (int i = 0; i < colRomb; i++)
+            {
+                _romb[i] = new Rhombus();
+            }
+            for (int i = 0; i < colRect; i++)
+            {
+                _rect[i] = new Rectangle();
+            }
+            for (int i = 0; i < colParal; i++)
+            {
+                _paral[i] = new Parallelogram();
+            }
 
+        }
+        //площадь составной фигуры равна сумме площадей всех включенных элементарных фигур
         public double SquareFigures()
         {
-            double S = 0; 
+            double S = 0;
             foreach (Triangle item in _tri)
             {
-                S += item.SquareFigures(); 
+                S += item.SquareFigures();
             }
             foreach (Square item in _sq)
             {
@@ -240,10 +295,20 @@ namespace ConsoleApp6DZ
             {
                 S += item.SquareFigures();
             }
-
             return S;
-            
         }
+
+        public override string ToString()
+        {
+            return $"Figure: Composite\n------------------------------\n Count " +
+                //$"Triangle: {_tri.Length}\n" +
+                //$" Count Square: {_sq.Length}\n" +
+                //$" Count Rhombus: {_romb.Length}\n" +
+                //$" Count Rectangle: {_rect.Length}\n" +
+                //$" Count Parallelogram: {_paral.Length}\n" +
+                $"Area: {SquareFigures()}\n";
+        }
+
 
     }
 
@@ -256,15 +321,15 @@ namespace ConsoleApp6DZ
             Console.WriteLine(tri);
             Console.WriteLine("\n---------------------------------------------\n");
 
-            Square s = new Square (12.3);
+            Square s = new Square(12.3);
             Console.WriteLine(s);
             Console.WriteLine("\n---------------------------------------------\n");
 
-            Rhombus romb = new Rhombus(15.4, (3.1415926/4));  // 45 g
+            Rhombus romb = new Rhombus(15.4, (3.1415926 / 4));  // 45 g
             Console.WriteLine(romb);
             Console.WriteLine("\n---------------------------------------------\n");
 
-            Rectangle rec= new Rectangle(12.5, 26.4);
+            Rectangle rec = new Rectangle(12.5, 26.4);
             Console.WriteLine(rec);
             Console.WriteLine("\n---------------------------------------------\n");
 
@@ -272,12 +337,12 @@ namespace ConsoleApp6DZ
             Console.WriteLine(pargr);
             Console.WriteLine("\n---------------------------------------------\n");
 
-            Circle c = new Circle(14.3);
+            Circle c = new Circle(12.5);
             Console.WriteLine(c);
             Console.WriteLine("\n---------------------------------------------\n");
 
-
-
+            CompositeFigure compositeFigure = new CompositeFigure(10, 10, 10, 10, 10);
+            Console.WriteLine(compositeFigure);
 
             //
             Console.ReadKey();
