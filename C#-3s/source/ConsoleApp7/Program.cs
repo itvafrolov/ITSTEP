@@ -10,7 +10,7 @@ namespace ConsoleApp7
     class Human
     {
         protected string firstName;
-        protected /*internal*/ string lastName;  //слишком много откуда доступ получается
+        protected /*internal*/ string lastName;  // слишком много откуда доступ получается
 
         protected internal DateTime BirsthDay { get; set; }
         public Human()

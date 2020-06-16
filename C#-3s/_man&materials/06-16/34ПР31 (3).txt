@@ -1,0 +1,144 @@
+
+    interface IFly
+    {
+        void Fly();
+    }
+    interface ISwim
+    {
+        void Swim();
+    }
+    interface IRun
+    {
+        void Run(int speed);
+    }
+    abstract class Bird
+    {
+        // ...
+        //public abstract void Fly();
+    }
+
+    class Duck : Bird, IFly, ISwim
+    {
+        //...
+
+        public void Fly()
+        {
+            Console.WriteLine("Duck fly");
+        }
+
+        public void Swim()
+        {
+            Console.WriteLine("Duck swim");
+        }
+    }
+
+    class Penguin : Bird, ISwim
+    {
+        public void Swim()
+        {
+            Console.WriteLine("Penguin swim");
+        }
+    }
+
+    class Ostrich : Bird, IRun
+    {
+        public void Run(int speed)
+        {
+            Console.WriteLine($"Ostrich run {speed} km/h");
+        }
+    }
+
+    abstract class Insect
+    {
+        // ...
+    }
+
+    class Butterfly : Insect, IFly
+    {
+        // ...
+        public void Fly()
+        {
+            Console.WriteLine("Butterfly fly");
+        }
+
+        public void Ex()
+        {
+            Console.WriteLine("Ex");
+        }
+    }
+
+    class Plane : IFly
+    {
+        public void Fly()
+        {
+            Console.WriteLine("Plane fly");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Bird[] birds = { new Penguin(), new Duck(), new Ostrich() };
+
+            //foreach (Bird item in birds)
+            //{
+            //    try
+            //    {
+            //        ((IFly)item).Fly(); // 1
+            //    }
+            //    catch { }
+
+            //    IFly fly = item as IFly; // 2
+            //    if (fly!=null)
+            //    {
+            //        fly.Fly();
+            //    }
+
+            //    if (item is IFly) // 3
+            //    {
+            //        (item as IFly).Fly();
+            //    }
+            //}
+
+            //IFly fly = new IFly();
+            //IFly fly = new Duck();
+
+            IFly[] flies = { new Butterfly(), new Duck(), new Plane() };
+            foreach (IFly item in flies)
+            {
+                item.Fly(); // полиморфизм
+            }
+
+            Butterfly butterfly = (flies[0] as Butterfly);
+            if (butterfly!=null)
+            {
+                butterfly.Ex();
+            }
+
+            Console.ReadKey();
+        }
+    }
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    abstract class Human
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public override string ToString()
+        {
+            return $"\nФамилия: {LastName} Имя: {FirstName} Дата рождения: {BirthDate.ToLongDateString()}";
+        }
+    }
+    abstract class Employee : Human
+    {
+        public string Position { get; set; }
+        public double Salary { get; set; }
+
+        public override string ToString()
+        {
+            return base.ToString() + $"\nДолжность: {Position} Заработная плата: {Salary} $";
+        }
+    }
