@@ -1,0 +1,147 @@
+Спецификаторы формата:
+1.	«С» или «c» – для числовых данных. Выводит символ местной валюты.
+2.	«D» или«d» – для целочисленных данных. Выводит обычное целое число.
+3.	«Е» или«e» – для числовых данных. Выводит число в экспоненциальной форме.
+4.	«F» или«f»– для числовых данных. Выводит число с фиксированной десятичной точкой.
+5.	«G» или«g»– для числовых данных. Выводит обычное число.
+6.	«N» или«n» – для числовых данных. Выводит числа в формате локальных настроек.
+7.	«P» или«p»– для числовых данных. Выводит числа с символом '%'.
+8.	«X» или«x»– для целочисленных данных. Выводит число в шестнадцатеричном формате.
+
+
+       double test1=99989.987;
+       int test2 = 99999;
+
+       Console.WriteLine(String.Format("c format: {0,15:C}", test1));
+       Console.WriteLine(String.Format("D format: {0:D9}", test2));
+       Console.WriteLine(String.Format("E format: {0:E}", test1));
+       Console.WriteLine(String.Format("f format: {0:F2}", test1));
+       Console.WriteLine(String.Format("G format: {0:G}", test1));
+       Console.WriteLine(String.Format("N format: {0,15:N}", test2));
+       Console.WriteLine(String.Format("P format: {0:P}", test1));
+       Console.WriteLine(String.Format("X format: {0:X}", test2));
+       Console.WriteLine(String.Format("x format: {0:x}", test2));
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        // Строки
+
+        static void Main(string[] args)
+        {
+            /*string str = "";
+            str = "hello";
+            foreach (char item in str)
+            {
+                Console.WriteLine(item);
+            }
+            string str1 = new string('%', 6);
+            Console.WriteLine(str1);
+
+            Console.WriteLine(str[1]); // e
+
+            char[] arr = { 't', 'o', '\t', 'g', 'o' };
+            string str2 = new string(arr);
+            Console.WriteLine(str2);*/
+
+            //string path = @"D:\Temp\Test.txt";
+            //Console.WriteLine(path);
+
+            string str = "Simple string";
+            /*Console.WriteLine(str.Length); // 13
+            char[] arr = new char[6];
+            str.CopyTo(3, arr, 0, 6);
+            Console.WriteLine(arr);*/
+            string str1 = "Next string";
+            /*Console.WriteLine(string.Concat(str,str1));
+            Console.WriteLine(str+str1);
+
+            Console.WriteLine(string.Compare(str,str1)); // 1
+            Console.WriteLine(str.CompareTo(str1)); // 1
+            Console.WriteLine(str.Equals(str1)); // False
+            Console.WriteLine(str==str1); // False
+
+            Console.WriteLine(str.IndexOf("Si")); // 0
+            Console.WriteLine(str.IndexOf('x')); // -1
+            Console.WriteLine(str.LastIndexOf("ring")); // 9
+            Console.WriteLine(str.Contains("str")); // True
+
+            if (str.EndsWith("ing", true, CultureInfo.CurrentCulture))
+            {
+                Console.WriteLine("+");
+            }
+            if (!str.StartsWith("xx"))
+            {
+                Console.WriteLine("-");
+            }
+
+            Console.WriteLine(str.ToLower());
+            Console.WriteLine(str1.ToUpper());
+
+            string str2 = str.Replace('i', '@');
+            Console.WriteLine(str2);
+            Console.WriteLine(str2.Remove(2,4));
+            Console.WriteLine(str2.Insert(2, "QQQQQ"));
+
+            Console.WriteLine(str.PadLeft(20,'*'));
+            str = str.PadRight(23, '#');
+            Console.WriteLine(str);
+
+            //Console.WriteLine(str.TrimEnd('#'));
+            //Console.WriteLine(str.TrimEnd(new char[] {'#'}));
+            str = str.Trim("#".ToCharArray());
+            Console.WriteLine(str);
+            string str3 = "*%#Hello";
+            Console.WriteLine(str3.TrimStart(new char[] {'%', '*', '#'}));
+
+            string[] arr = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string item in arr)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine(string.Join("+", arr));*/
+
+            /*int n1 = 4, n2 = 5;
+
+            string result = string.Format("{0} + {1} = {2}", n1, n2, n1 + n2);
+            Console.WriteLine(result);
+
+            Console.WriteLine(string.Format("Currency format: {0,-7:C}", n1));
+
+            string result = $"{n1} + {n2} = {(n1+n2)*2.3478,15:f4}";
+            Console.WriteLine(result);
+            Console.WriteLine($"n1 {(n1>n2?">":"<")} n2");*/
+
+            string str2 = "Number";
+            str2 = "Zero";
+            str2 += "Count";
+
+            int n1 = 4, n2 = 5;
+            StringBuilder builder = new StringBuilder();
+            Console.WriteLine(builder.Capacity); // 16
+            builder.Append(Console.ReadLine());
+
+            Console.WriteLine(builder.Length);
+            Console.WriteLine(builder.Capacity);
+
+            builder.AppendLine();
+            builder.AppendFormat("{0} + {1} = {2}", n1, n2, n1 + n2);
+            builder.AppendLine("Hello");
+
+            builder.Insert(4, "AAAAAA");
+            Console.WriteLine(builder);
+
+            builder.Remove(7, 3);
+            builder.Replace('A', '&');
+
+            Console.WriteLine(builder.Length);
+            Console.WriteLine(builder.Capacity);
+
+            string str4 = builder.ToString();
+            Console.WriteLine(str4);
+
+            Console.ReadKey();
+        }
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+1. Поменять местами соседние слова во введённом предложении.

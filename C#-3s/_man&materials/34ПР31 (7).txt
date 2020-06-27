@@ -1,0 +1,210 @@
+
+    // [модификатор] delegate тип_возврата Имя_Делегата(параметр1, параметр2, ...);   
+    delegate int IntDelegate(double d);
+
+    delegate void VoidDelegate(IntDelegate i);
+
+    delegate double CalcDelegate(double x, double y);
+
+    // [модификатор] delegate тип_возврата Имя_Делегата<типы параметров>(параметр1, параметр2, ...);
+    delegate T AddDelegate<T>(T a, T b);
+
+    class Example
+    {
+        public int Add(int a, int b)
+        {
+            return a + b;
+        }
+        public double Add(double a, double b)
+        {
+            return a + b;
+        }
+        public char Add(char a, char b)
+        {
+            return (char)(a + b);
+        }
+    }
+
+    class Calculator
+    {
+        public double Add(double x, double y)
+        {
+            return x + y;
+        }
+        public static double Sub(double x, double y)
+        {
+            return x - y;
+        }
+        public double Mult(double x, double y)
+        {
+            return x * y;
+        }
+        public static double Div(double x, double y)
+        {
+            if (y!=0)
+            {
+                return x / y;
+            }
+            throw new DivideByZeroException();
+        }        
+    }
+    class Program
+    {
+        static int M1(double d)
+        {
+            return (int)d;
+        }
+        static void M2(IntDelegate delRef)
+        {
+            Console.Write("Enter number: ");
+            double d;
+            if (double.TryParse(Console.ReadLine(),out d))
+            {
+                Console.WriteLine(delRef(d)); 
+            }           
+        }
+        static void Method(double x, double y)
+        {
+            Console.WriteLine(x + y);
+        }
+        static void Main(string[] args)
+        {
+            //CalcDelegate del = new CalcDelegate(Method);
+
+            Calculator calc = new Calculator();
+
+            /*Console.WriteLine("Input expression:");
+            string expression = Console.ReadLine();
+            char sign = ' ';
+
+            foreach (char item in expression)
+            {
+                if (item == '+' || item == '-' || item == '*' || item == '/')
+                {
+                    sign = item;
+                    break;
+                }
+            }
+
+            try
+            {
+                string[] numbers = expression.Split(sign);
+                
+                CalcDelegate calcDelegate = null;
+
+                switch (sign)
+                {
+                    case '+':
+                        calcDelegate = new CalcDelegate(calc.Add);
+                        break;
+                    case '-':
+                        calcDelegate = new CalcDelegate(Calculator.Sub);
+                        break;
+                    case '*': // групповое преобразование методов
+                        calcDelegate = calc.Mult;
+                        break;
+                    case '/':
+                        calcDelegate = Calculator.Div;
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
+                
+                // 65.7 - 78.3 = -12.6
+                Console.WriteLine($"{double.Parse(numbers[0])} {sign} {double.Parse(numbers[1])} = {calcDelegate(double.Parse(numbers[0]), double.Parse(numbers[1]))}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }*/
+
+            /*CalcDelegate calcDelegate = calc.Add;
+            calcDelegate += Calculator.Div;
+            calcDelegate += calc.Mult;
+            calcDelegate += Calculator.Sub;
+            //calcDelegate -= calc.Mult;
+
+            double x = 26.78, y = 39.43;
+
+            foreach (CalcDelegate item in calcDelegate.GetInvocationList())
+            {
+                Console.WriteLine($"Result: {item.Invoke(x, y)}");
+            }*/
+
+            /*Example example = new Example();
+
+            AddDelegate<int> delInt = new AddDelegate<int>(example.Add);
+            Console.WriteLine(delInt(34,67));
+
+            AddDelegate<double> delDouble = example.Add;
+            Console.WriteLine(delDouble(2.53, 7.19));
+
+            AddDelegate<char> delChar = example.Add;
+            Console.WriteLine(delChar('S','h'));*/
+
+            //////IntDelegate intDelegate = new IntDelegate(M1);
+            ////IntDelegate intDelegate = M1;
+            ////M2(intDelegate);
+            //M2(M1);
+
+
+
+            Console.ReadKey();
+        }
+    }
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+    class Student
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime BirthDate { get; set; }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Student> group = new List<Student> {
+
+                new Student {
+                    FirstName = "John",
+                    LastName = "Miller",
+                    BirthDate = new DateTime(1997,3,12)
+                },
+
+                new Student {
+                    FirstName = "Candice",
+                    LastName = "Leman",
+                    BirthDate = new DateTime(1998,7,22)
+                },
+
+                new Student {
+                    FirstName = "Joey",
+                    LastName = "Finch",
+                    BirthDate = new DateTime(1996,11,30)
+                },
+
+                new Student {
+                    FirstName = "Nicole",
+                    LastName = "Taylor",
+                    BirthDate = new DateTime(1996,5,10)
+                }
+
+            };
+
+            ////Action<Student> action = new Action<Student>(FullName);
+            //Action<Student> action = FullName;
+            //group.ForEach(action);
+            group.ForEach(FullName);
+
+            Console.ReadKey();
+        }
+
+        private static void FullName(Student obj)
+        {
+            Console.WriteLine($"\t{obj.LastName} {obj.FirstName}");
+        }
+    }
