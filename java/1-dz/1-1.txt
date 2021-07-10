@@ -1,0 +1,25 @@
+package com.company;
+
+import java.io.PrintStream;
+
+public class Main {
+
+    public static void main(String[] args) {
+	byte b = 8;
+	short sh = 2;
+	int i = 0;
+	long l = 10;
+	float f = 19.91F;
+	double d = 99.996699;
+	boolean bb = true;
+	char ch = '*';
+		System.out.printf("byte\tb = %d; \n", b);
+		System.out.printf("short\tsh = %d; \n", sh );
+		System.out.printf("int\t\ti = %d; \n", i );
+		System.out.printf("long\tl = %d; \n", l );
+		System.out.printf("float\tf = %f; \n", f );
+		System.out.printf("double\td = %f; \n", d );
+		System.out.printf("boolean\tbb = " + bb + ";\n");
+		System.out.printf("char\tch = %c. \n", ch );
+    }
+}
